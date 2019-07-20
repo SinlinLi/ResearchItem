@@ -1,0 +1,17 @@
+name: ResearchItem
+main: io.github.YoungCreeper.ResearchItem
+version: 1.0.0
+author: YoungCreeper
+commands:
+   research:
+      description: This is a demo command.
+      usage: Please type /research help.
+      aliases: [ri]
+      permission: researchitem.research
+      permission-message: You don't have researchitem.research
+permissions: 
+  researchitem.research:
+    default: op
+aliases:
+    ri:
+    - "research"
