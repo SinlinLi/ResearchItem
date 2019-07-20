@@ -10,8 +10,7 @@
            <artifactId>bukkit</artifactId>
            <version>1.12.2-R0.1</version>
            <type>jar</type>
-           <scope>system</scope>
-           <systemPath>E:\MiracleWorld_6th\bukkit api\bukkit-1.12.2-R0.1-SNAPSHOT.jar</systemPath>
+           <scope>provided</scope>
        </dependency>
        </dependencies>
   <build>
