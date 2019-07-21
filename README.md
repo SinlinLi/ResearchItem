@@ -9,17 +9,24 @@ ResearchItem
 权限
 
 researchitem.research——使用命令/research的权限(默认OP拥有)
+
 researchitem.research.id——使用命令/research id的权限(默认OP拥有)
 researchitem.research.lore——使用命令/research lore的权限(默认OP拥有)
+
 researchitem.research.name——使用命令/research name的权限(默认OP拥有)
+
 researchitem.research.version——使用命令/research version的权限(默认OP拥有)
 
 命令
 
 /research id 物品ID(英文数字皆可) 全服搜索拥有指定物品ID的玩家
+
 /research lore 指定文本 全服搜索拥有lore包含指定文本的物品的玩家
+
 /research name 指定文本 全服搜索拥有自定义名称包含指定文本的物品的玩家
+
 /research version 查询插件版本
+
 /research 或/research help 获取帮助
 
 配置文件
