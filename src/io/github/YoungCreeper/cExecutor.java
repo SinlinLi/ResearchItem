@@ -9,110 +9,157 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class cExecutor implements CommandExecutor {
-	private final ResearchItem plugin;
-	
-    public cExecutor(ResearchItem plugin) {
-        this.plugin = plugin;
-    }
 
 	@Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("research")) {		//ÅĞ¶ÏÃüÁî
-        	if(sender.hasPermission("researchitem.research")) {		//ÅĞ¶ÏÊÇ·ñÓµÓĞÈ¨ÏŞ
-        		if (args.length==0) {
-					sender.sendMessage("¡ìa-------------[ResearchItem] °ïÖú-------------");
-					sender.sendMessage("¡ìa/research id ÎïÆ·ID¡ª¡ªËÑË÷ÔÚÏßÍæ¼ÒÖĞÓµÓĞÖ¸¶¨ÎïÆ·µÄÈË");
-					sender.sendMessage("¡ìa/research lore ÎïÆ·lore¡ª¡ªËÑË÷ÔÚÏßÍæ¼ÒÖĞÓµÓĞÖ¸¶¨ÎïÆ·loreµÄÈË");
+        if (cmd.getName().equalsIgnoreCase("research")) {		//åˆ¤æ–­å‘½ä»¤
+    		if (args.length==0) {
+				sender.sendMessage("Â§a---------------[ResearchItem] å¸®åŠ©---------------");
+				sender.sendMessage("Â§a/research id ç‰©å“IDâ€”â€”æœç´¢åœ¨çº¿ç©å®¶ä¸­æ‹¥æœ‰æŒ‡å®šç‰©å“çš„äºº");
+				sender.sendMessage("Â§a/research lore ç‰©å“loreâ€”â€”æœç´¢åœ¨çº¿ç©å®¶ä¸­æ‹¥æœ‰æŒ‡å®šç‰©å“loreçš„äºº");
+    		}
+    		else {
+				if(args[0].equalsIgnoreCase("help")) {
+					sender.sendMessage("Â§a------------[ResearchItem] å¸®åŠ©------------");
+					sender.sendMessage("Â§a/research id ç‰©å“IDâ€”â€”æœç´¢åœ¨çº¿ç©å®¶ä¸­æ‹¥æœ‰æŒ‡å®šç‰©å“çš„äºº");
+					sender.sendMessage("Â§a/research lore ç‰©å“loreâ€”â€”æœç´¢åœ¨çº¿ç©å®¶ä¸­æ‹¥æœ‰æŒ‡å®šç‰©å“loreçš„äºº");
+				}
+				else{
+		        	if(sender.hasPermission("researchitem.research")) {		//åˆ¤æ–­æ˜¯å¦æ‹¥æœ‰æƒé™
+						if(args[0].equalsIgnoreCase("version")) {
+				        	if(sender.hasPermission("researchitem.research.version")) {		//åˆ¤æ–­æ˜¯å¦æ‹¥æœ‰æƒé™
+								sender.sendMessage("Â§a[ResearchItem] å½“å‰ç‰ˆæœ¬v1.1.1");
+				        	}
+				        	else {
+								sender.sendMessage("Â§a[ResearchItem] ä½ æ²¡æœ‰researchitem.research.versionæƒé™!");
+				        	}
+						}
+						else {
+							if(args[0].equalsIgnoreCase("id")) {
+								if(sender.hasPermission("researchitem.research.id")) {	
+									if (args.length==2) {
+										Material itemmaterial=Material.getMaterial(args[1].toUpperCase());		//è‹±æ–‡ID
+		                        		if(!(itemmaterial instanceof Material)) {
+		                        			try {
+		                        				int id=Integer.valueOf(args[1]);
+		                        				itemmaterial=Material.getMaterial(id);		//æ•°å­—ID
+		                        				} 
+		                        			catch (NumberFormatException e) {
+		                            			sender.sendMessage("Â§a[ResearchItem] å‚æ•°é”™è¯¯!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+		                        				}
+		                        		}
+		                        		if(itemmaterial instanceof Material) {		//ç¡®ä¿æˆåŠŸè·å–æè´¨
+		                        			int n=0;
+		                        			sender.sendMessage("Â§a[ResearchItem] æ‹¥æœ‰"+itemmaterial.name()+"çš„ç©å®¶ï¼š");
+		                        			for (Player player : Bukkit.getServer().getOnlinePlayers()) {		//ä¾¿å†åœ¨çº¿ç©å®¶åˆ¤æ–­èƒŒåŒ…æ˜¯å¦æœ‰æŒ‡å®šç‰©å“
+		                                		if (player.getInventory().contains(itemmaterial)){
+		                                			sender.sendMessage(player.getName());
+		                                			n=n+1;		//è®¡æ•°
+		                                		}
+		                        			}
+		                        			if(n==0) {
+		                        				sender.sendMessage("æ— ");
+		                        			}
+		                        			sender.sendMessage("Â§aå…±"+n+"å");
+		                            		
+		                        		}
+		                        		else {
+		                        			sender.sendMessage("Â§a[ResearchItem] å‚æ•°é”™è¯¯!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+		                        		}
+									}
+									else {
+			                			sender.sendMessage("Â§a[ResearchItem] å‚æ•°æ•°é‡é”™è¯¯!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+									}
+								}
+								else {
+									sender.sendMessage("Â§a[ResearchItem] ä½ æ²¡æœ‰researchitem.research.idæƒé™!");
+								}
+							}
+							else {
+								if(args[0].equalsIgnoreCase("lore")) {
+									if(sender.hasPermission("researchitem.research.lore")) {	
+										if (args.length==2) {
+											String lore=args[1];
+											int n=0;
+		                        			sender.sendMessage("Â§a[ResearchItem] æ‹¥æœ‰ç‰©å“loreåŒ…å«"+lore+"çš„ç‰©å“çš„ç©å®¶ï¼š");
+		                        			for (Player player : Bukkit.getServer().getOnlinePlayers()) {		//éå†åœ¨çº¿ç©å®¶è·å–èƒŒåŒ…
+		                                		is:for (ItemStack itemstack:player.getInventory().getContents()){//éå†èƒŒåŒ…è·å–ç‰©å“å †
+		                                			try {
+		                                    			if(itemstack.getItemMeta().hasLore()) {
+		                                        			lo:for(String l:itemstack.getItemMeta().getLore())		//è·å–å•ä¸ªlore
+		                                        				if(!(l.indexOf(lore)==-1)) {		//åˆ¤æ–­ç›®æ ‡loreä¸­æ˜¯å¦å«æœ‰æŒ‡å®šlore
+		                                                			sender.sendMessage(player.getName());
+		                                        					n=n+1;		//è®¡æ•°
+		                                        					break is;
+		                                        				}
+		                                    			} 
+		                                				} 
+		                                			catch (NullPointerException e) {
+		                                				}
+		                                		}
+		                        			}
+		                        			if(n==0) {
+		                        				sender.sendMessage("æ— ");
+		                        			}
+		                        			sender.sendMessage("Â§aå…±"+n+"å");
+										}
+										else {
+		    	                			sender.sendMessage("Â§a[ResearchItem] å‚æ•°æ•°é‡é”™è¯¯!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+										}
+									}
+									else {
+										sender.sendMessage("Â§a[ResearchItem] ä½ æ²¡æœ‰researchitem.research.loreæƒé™!");
+									}
+									
+								}
+								else {
+									if(args[0].equalsIgnoreCase("name")){
+										if(sender.hasPermission("researchitem.research.name")) {	
+											if (args.length==2) {
+												String name=args[1];
+												int n=0;
+			                        			sender.sendMessage("Â§a[ResearchItem] æ‹¥æœ‰è‡ªå®šä¹‰ç‰©å“åç§°åŒ…å«"+name+"çš„ç‰©å“çš„ç©å®¶ï¼š");
+			                        			for (Player player : Bukkit.getServer().getOnlinePlayers()) {		//éå†åœ¨çº¿ç©å®¶è·å–èƒŒåŒ…
+			                                		for (ItemStack itemstack:player.getInventory().getContents()){//éå†èƒŒåŒ…è·å–ç‰©å“å †
+			                                			try {
+			                                    			if(itemstack.getItemMeta().hasDisplayName()) {
+			                                    				if(!(itemstack.getItemMeta().getDisplayName().indexOf(name)==-1)) {
+		                                                			sender.sendMessage(player.getName());
+		                                        					n=n+1;		//è®¡æ•°
+		                                        					break;
+		                                        				}
+			                                    			} 
+			                                			} 
+			                                			catch (NullPointerException e) {
+			                                			}
+			                                		}
+			                        			}
+			                        			if(n==0) {
+			                        				sender.sendMessage("æ— ");
+			                        			}
+			                        			sender.sendMessage("Â§aå…±"+n+"å");
+											}
+											else {
+												sender.sendMessage("Â§a[ResearchItem] å‚æ•°æ•°é‡é”™è¯¯!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+											}
+										}
+										else {
+											sender.sendMessage("Â§a[ResearchItem] ä½ æ²¡æœ‰researchitem.research.nameæƒé™!");
+										}
+									}
+									else {
+										sender.sendMessage("Â§a[ResearchItem] æŒ‡ä»¤ä¸å­˜åœ¨!è¾“å…¥/research helpæŸ¥çœ‹å¸®åŠ©");
+									}
+									
+								}
+							}
+						}
+		        	}
+		        	else {
+		        		sender.sendMessage("Â§a[ResearchItem] ä½ æ²¡æœ‰researchitem.researchæƒé™!");
+		        	}
         		}
-        		else {
-    				if(args[0].equalsIgnoreCase("help")) {
-    					sender.sendMessage("¡ìa----------[ResearchItem] °ïÖú----------");
-    					sender.sendMessage("¡ìa/research id ÎïÆ·ID¡ª¡ªËÑË÷ÔÚÏßÍæ¼ÒÖĞÓµÓĞÖ¸¶¨ÎïÆ·µÄÈË");
-    					sender.sendMessage("¡ìa/research lore ÎïÆ·lore¡ª¡ªËÑË÷ÔÚÏßÍæ¼ÒÖĞÓµÓĞÖ¸¶¨ÎïÆ·loreµÄÈË");
-    				}
-    				else{
-    					if(args[0].equalsIgnoreCase("version")) {
-    						sender.sendMessage("¡ìa[ResearchItem] µ±Ç°°æ±¾v1.0.0");
-    					}
-    					else {
-    						if(args[0].equalsIgnoreCase("id")) {
-    							if (args.length==2) {
-    								Material itemmaterial=Material.getMaterial(args[1].toUpperCase());		//Ó¢ÎÄID
-                            		if(!(itemmaterial instanceof Material)) {
-                            			try {
-                            				int id=Integer.valueOf(args[1]);
-                            				itemmaterial=Material.getMaterial(id);		//Êı×ÖID
-                            				} 
-                            			catch (NumberFormatException e) {
-                                			sender.sendMessage("¡ìa[ResearchItem] ²ÎÊı´íÎó!ÊäÈë/research help²é¿´°ïÖú");
-                            				}
-                            		}
-                            		if(itemmaterial instanceof Material) {		//È·±£³É¹¦»ñÈ¡²ÄÖÊ
-                            			int n=0;
-                            			sender.sendMessage("¡ìa[ResearchItem] ÓµÓĞ"+itemmaterial.name()+"µÄÍæ¼Ò£º");
-                            			for (Player player : Bukkit.getServer().getOnlinePlayers()) {		//±ãÀúÔÚÏßÍæ¼ÒÅĞ¶Ï±³°üÊÇ·ñÓĞÖ¸¶¨ÎïÆ·
-                                    		if (player.getInventory().contains(itemmaterial)){
-                                    			sender.sendMessage(player.getName());
-                                    			n=n+1;		//¼ÆÊı
-                                    		}
-                            			}
-                            			if(n==0) {
-                            				sender.sendMessage("ÎŞ");
-                            			}
-                            			sender.sendMessage("¡ìa¹²"+n+"Ãû");
-                                		
-                            		}
-                            		else {
-                            			sender.sendMessage("¡ìa[ResearchItem] ²ÎÊı´íÎó!ÊäÈë/research help²é¿´°ïÖú");
-                            		}
-    							}
-    							else {
-    	                			sender.sendMessage("¡ìa[ResearchItem] ²ÎÊıÊıÁ¿´íÎó!ÊäÈë/research help²é¿´°ïÖú");
-    							}
-    							
-    						}
-    						else {
-    							if(args[0].equalsIgnoreCase("lore")) {
-    								if (args.length==2) {
-    									String lore=args[1];
-    									int n=0;
-                            			sender.sendMessage("¡ìa[ResearchItem] ÓµÓĞÎïÆ·lore°üº¬"+lore+"µÄÎïÆ·µÄÍæ¼Ò£º");
-                            			for (Player player : Bukkit.getServer().getOnlinePlayers()) {		//±éÀúÔÚÏßÍæ¼Ò»ñÈ¡±³°ü
-                                    		is:for (ItemStack itemstack:player.getInventory().getContents()){//±éÀú±³°ü»ñÈ¡ÎïÆ·¶Ñ
-                                    			try {
-                                        			if(itemstack.getItemMeta().hasLore()) {
-                                            			lo:for(String l:itemstack.getItemMeta().getLore())		//»ñÈ¡µ¥¸ölore
-                                            				if(!(l.indexOf(lore)==-1)) {		//ÅĞ¶ÏÄ¿±êloreÖĞÊÇ·ñº¬ÓĞÖ¸¶¨lore
-                                                    			sender.sendMessage(player.getName());
-                                            					n=n+1;		//¼ÆÊı
-                                            					break is;
-                                            				}
-                                        			} 
-                                    				} 
-                                    			catch (NullPointerException e) {
-                                    				}
-                                    		}
-                            			}
-                            			if(n==0) {
-                            				sender.sendMessage("ÎŞ");
-                            			}
-                            			sender.sendMessage("¡ìa¹²"+n+"Ãû");
-    								}
-    								else {
-        	                			sender.sendMessage("¡ìa[ResearchItem] ²ÎÊıÊıÁ¿´íÎó!ÊäÈë/research help²é¿´°ïÖú");
-    								}
-    							}
-    							else {
-    								sender.sendMessage("¡ìa[ResearchItem] Ö¸Áî²»´æÔÚ!ÊäÈë/research help²é¿´°ïÖú");
-    							}
-    						}
-    					}
-            		}
-        		}
-        	}
-        	else {
-        		sender.sendMessage("¡ìa[ResearchItem] ÄãÃ»ÓĞÈ¨ÏŞÕâÃ´×ö!");
-        	}
+    		}
         }
     	return true;
     }
