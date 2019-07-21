@@ -1,16 +1,18 @@
 package io.github.YoungCreeper;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ResearchItem extends JavaPlugin {
 	@Override
 	public void onEnable(){
-		this.getCommand("research").setExecutor(new cExecutor(this));
-		getLogger().info("ResearchItemÒÑ¾­ÆôÓÃ£¡°æ±¾v1.0.0");
+		Bukkit.getPluginCommand("research").setExecutor(new cExecutor());
+		getLogger().info(ChatColor.GREEN+"ResearchItemå·²ç»å¯ç”¨ï¼ç‰ˆæœ¬v1.1.1");
 	}
 	@Override
 	public void onDisable(){
-		getLogger().info("ResearchItemÒÑ¾­Í£ÓÃ£¡");
+		getLogger().info(ChatColor.GREEN+"ResearchItemå·²ç»åœç”¨ï¼");
 	}
 
 }
