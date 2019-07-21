@@ -11,6 +11,7 @@ ResearchItem
 researchitem.research——使用命令/research的权限(默认OP拥有)
 
 researchitem.research.id——使用命令/research id的权限(默认OP拥有)
+
 researchitem.research.lore——使用命令/research lore的权限(默认OP拥有)
 
 researchitem.research.name——使用命令/research name的权限(默认OP拥有)
